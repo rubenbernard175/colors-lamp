@@ -1,0 +1,85 @@
+@startuml
+
+class User {
+  +ID : int
+  +firstName : string
+  +lastName : string
+  +Login : string
+  +Password : string
+}
+
+class Color {
+  +Name : string
+  +UserID : int
+}
+
+class index_html {
+  +loginName : input
+  +loginPassword : input
+  +loginButton : button
+}
+
+class color_html {
+  +searchText : input
+  +colorText : input
+  +searchColorButton : button
+  +addColorButton : button
+  +logoutButton : button
+}
+
+class code_js {
+  +urlBase : string
+  +extension : string
+  +userId : int
+  +firstName : string
+  +lastName : string
+  +doLogin()
+  +saveCookie()
+  +readCookie()
+  +doLogout()
+  +addColor()
+  +searchColor()
+}
+
+class Login_php {
+  +getRequestInfo()
+  +sendResultInfoAsJson(obj)
+  +returnWithError(err)
+  +returnWithInfo(firstName, lastName, id)
+}
+
+class SearchColors_php {
+  +getRequestInfo()
+  +sendResultInfoAsJson(obj)
+  +returnWithError(err)
+  +returnWithInfo(searchResults)
+}
+
+class AddColor_php {
+  +getRequestInfo()
+  +sendResultInfoAsJson(obj)
+  +returnWithError(err)
+}
+
+database MySQL {
+  Users
+  Colors
+}
+
+index_html --> code_js : uses
+color_html --> code_js : uses
+
+code_js --> Login_php : sends login request
+code_js --> SearchColors_php : sends search request
+code_js --> AddColor_php : sends add request
+
+Login_php --> MySQL : queries Users
+SearchColors_php --> MySQL : queries Colors
+AddColor_php --> MySQL : inserts Colors
+
+User ||--o{ Color : owns
+Login_php ..> User : reads
+SearchColors_php ..> Color : reads
+AddColor_php ..> Color : creates
+
+@enduml
