@@ -1,0 +1,18 @@
+@startuml
+left to right direction
+
+actor User
+
+rectangle "COLORS Web Application" {
+  usecase "Log In"
+  usecase "Search Color"
+  usecase "Add Color"
+  usecase "Log Out"
+}
+
+User --> "Log In"
+User --> "Search Color"
+User --> "Add Color"
+User --> "Log Out"
+
+@enduml
