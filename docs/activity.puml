@@ -1,1 +1,41 @@
+@startuml
+start
 
+:Open index.html;
+:Enter username and password;
+:Click "Do It";
+:Send login request to Login.php;
+
+if (Login valid?) then (yes)
+  :Receive user id, first name, and last name;
+  :Save cookie;
+  :Redirect to color.html;
+  :Read cookie;
+
+  if (Search for a color?) then (yes)
+    :Enter color text;
+    :Click "Search Color";
+    :Send request to SearchColors.php;
+    :Display results;
+  endif
+
+  if (Add a color?) then (yes)
+    :Enter new color;
+    :Click "Add Color";
+    :Send request to AddColor.php;
+    :Display success message;
+  endif
+
+  if (Log out?) then (yes)
+    :Clear cookie;
+    :Redirect to index.html;
+  else (no)
+    :Stay on color page;
+  endif
+
+else (no)
+  :Display login error;
+endif
+
+stop
+@enduml
